@@ -1,25 +1,18 @@
 import React from 'react';
-import { BsCheckCircle, BsCircle, BsXLg } from 'react-icons/bs';
-import { useDispatch } from 'react-redux';
+import Check from './Check';
+import DeleteButton from './DeleteButton';
 import TaskLineCss from '../styles/TaskLine.module.scss';
-import { deleteTask, completeTask } from '../redux/TasksSlice';
 
-export default function TaskLine({ item }) {
+export default function TaskLine({ item, style }) {
     const [showDeleteButton, setShowDeleteButton] = React.useState(false);
-    const dispatch = useDispatch();
     return (
         <div
             className={TaskLineCss.taskLine}
             onMouseEnter={() => setShowDeleteButton(true)}
             onMouseLeave={() => setShowDeleteButton(false)}
+            style={style}
         >
-            <button
-                type="button"
-                className={TaskLineCss.doneCheck}
-                onClick={() => dispatch(completeTask(item.id))}
-            >
-                {item.isDone ? <BsCheckCircle /> : <BsCircle />}
-            </button>
+            <Check item={item} />
 
             <div
                 className={
@@ -31,16 +24,7 @@ export default function TaskLine({ item }) {
                 {item.text}
             </div>
 
-            {showDeleteButton
-            && (
-                <button
-                    type="button"
-                    className={TaskLineCss.deleteButton}
-                    onClick={() => dispatch(deleteTask(item.id))}
-                >
-                    <BsXLg />
-                </button>
-            )}
+            {showDeleteButton && <DeleteButton item={item} />}
         </div>
     );
 }

@@ -37,10 +37,15 @@ export const tasksSlice = createSlice({
         clearCompleted: (state) => {
             state.tasks = state.tasks.filter((elem) => elem.isDone === false);
         },
+
+        reorder: (state, action) => {
+            const [removed] = state.tasks.splice(action.payload.startIndex, 1);
+            state.tasks.splice(action.payload.endIndex, 0, removed);
+        },
     },
 });
 
 export const {
-    addTask, deleteTask, completeTask, clearCompleted,
+    addTask, deleteTask, completeTask, clearCompleted, reorder,
 } = tasksSlice.actions;
 export default tasksSlice.reducer;
