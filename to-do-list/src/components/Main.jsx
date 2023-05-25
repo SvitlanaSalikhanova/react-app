@@ -1,4 +1,5 @@
 import React from 'react';
+import { Droppable } from 'react-beautiful-dnd';
 import MainCss from '../styles/Main.module.scss';
 import MenuLine from './MenuLine';
 
@@ -19,7 +20,14 @@ export default function Main(
                 onKeyUp={addItem}
             />
             <div className={MainCss.linesWrapper}>
-                {taskLines}
+                <Droppable droppableId="list">
+                    {(provided) => (
+                        <div ref={provided.innerRef} {...provided.droppableProps}>
+                            {taskLines}
+                            {provided.placeholder}
+                        </div>
+                    )}
+                </Droppable>
 
                 <MenuLine count={taskLines.length} />
             </div>
