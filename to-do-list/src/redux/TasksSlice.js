@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { SHOW_ACTIVE, SHOW_COMPLETED } from '../FilterConstatnts';
+import { readTasks } from '../repository/repository';
 
 const initialState = {
-    tasks: JSON.parse(localStorage.getItem('tasks')) || [],
+    tasks: readTasks() || [],
 
 };
 

@@ -6,6 +6,7 @@ import { getActive, addTask, reorder } from '../redux/TasksSlice';
 
 import Main from '../components/Main';
 import { SHOW_ALL } from '../FilterConstatnts';
+import { writeTasks } from '../repository/repository';
 
 export default function MainController() {
     const tasks = useSelector(getActive);
@@ -15,7 +16,7 @@ export default function MainController() {
 
     const [tempText, setTempText] = React.useState('');
 
-    React.useEffect(() => localStorage.setItem('tasks', JSON.stringify(tasks)), [tasks]);
+    React.useEffect(() => writeTasks(tasks), [tasks]);
 
     function addItem(event) {
         if (event.key === 'Enter' && event.target.value) {
